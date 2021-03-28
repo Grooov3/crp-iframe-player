@@ -25,12 +25,12 @@ window.addEventListener("message", function (e) {
 	for (var i = 0; i < video_config_media['streams'].length; i++) {
 		if (video_config_media['streams'][i].format == 'trailer_hls' && video_config_media['streams'][i].hardsub_lang == user_lang)
 			if (rows_number <= 4) {
-				const url = video_config_media['streams'][i].url.replace(/\/clipFrom.*?index.m3u8/, '').replace('_,', '_').replace(video_config_media['streams'][i].url.split("/")[2], "ll.v.vrv.co");
+				const url = video_config_media['streams'][i].url.replace(/\/clipFrom.*?index.m3u8/, '').replace('_,', '_').replace(video_config_media['streams'][i].url.split("/")[2], "fy.v.vrv.co");
 				video_m3u8_array.push(url);
 				rows_number++;
 			}
 		if (video_config_media['streams'][i].format == 'adaptive_hls' && video_config_media['streams'][i].hardsub_lang == user_lang) {
-			video_stream_url = video_config_media['streams'][i].url.replace("pl.crunchyroll.com", "ll.v.vrv.co");
+			video_stream_url = video_config_media['streams'][i].url.replace("pl.crunchyroll.com", "fy.v.vrv.co");
 			break;
 		}
 	}
