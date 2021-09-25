@@ -52,14 +52,26 @@ function importPlayer(){
 			console.log("[CR Premium] Removendo Free Trial Signup...");
 			document.body.querySelector("#showmedia_free_trial_signup").style.display = "none";
 		}
-		
 
-		ifrm.onload = function(){
-			ifrm.contentWindow.postMessage({
-           		'video_config_media': [JSON.stringify(video_config_media)],
-           		'lang': [pegaString(HTML, 'LOCALE = "', '",')]
-        	},"*");
-	    };
+        // Simular interação do usuário para deixar em fullscreen automaticamente
+		var element = document.getElementById("template_scroller");
+		if (element) element.click();
+        
+		const series = document.querySelector('meta[property="og:title"]');
+		const up_next = document.querySelector('link[rel=next]');
+		chrome.storage.sync.get(['aseguir', 'cooldown'], function(items) {
+			ifrm.onload = function(){
+				ifrm.contentWindow.postMessage({
+           			'video_config_media': [JSON.stringify(video_config_media)],
+				   	'lang': [pegaString(HTML, 'LOCALE = "', '",')],
+				   	'series': series ? series.content : undefined,
+				   	'up_next': up_next ? up_next.href : undefined,
+				   	'up_next_cooldown': items.cooldown === undefined ? 5 : items.cooldown,
+				   	'up_next_enable': items.aseguir === undefined ? true : items.aseguir,
+				   	'version': "1.0.3"
+        		},"*");
+			};
+		});
 
 		//console.log(video_config_media);
 }
